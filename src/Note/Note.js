@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { format } from 'date-fns'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Note.css'
 
 export default function Note(props) {
@@ -12,8 +11,8 @@ export default function Note(props) {
           {props.name}
         </Link>
       </h2>
+      
       <button className='Note__delete' type='button'>
-        <FontAwesomeIcon icon='trash-alt' />
         {' '}
         remove
       </button>
@@ -21,11 +20,9 @@ export default function Note(props) {
         <div className='Note__dates-modified'>
           Modified
           {' '}
-          <span className='Date'>
-            {format(props.modified, 'Do MMM YYYY')}
-          </span>
-        </div>
-      </div>
-    </div>
+          <div className="Date">{format(new Date(props.modified), 'do MMM, yyyy')}</div>
+        </div> 
+     </div>
+  </div>
   )
 }

@@ -1,23 +1,24 @@
 import React, {Component} from 'react';
 import {Route, Link} from 'react-router-dom';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
-import dummyStore from '../dummy-store';
+import STORE from '../dummy-store';
 import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import './App.css';
 
 class App extends Component {
-    state = {
+    constructor(props){
+        super(props);
+        this.state = {
         notes: [],
         folders: []
     };
-
+}
     componentDidMount() {
-        // fake date loading from API call
-        setTimeout(() => this.setState(dummyStore), 600);
+        console.log(STORE);
+        setTimeout(() => this.setState(STORE), 600);
     }
 
     renderNavRoutes() {
@@ -95,8 +96,7 @@ class App extends Component {
                 <nav className="App__nav">{this.renderNavRoutes()}</nav>
                 <header className="App__header">
                     <h1>
-                        <Link to="/">Noteful</Link>{' '}
-                        <FontAwesomeIcon icon="check-double" />
+                        <Link to="/">Noteful</Link>{' '}       
                     </h1>
                 </header>
                 <main className="App__main">{this.renderMainRoutes()}</main>
