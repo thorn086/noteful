@@ -2,13 +2,26 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Note from '../Note/Note'
 import CircleButton from '../CircleButton/CircleButton'
+import NoteContext from '../NoteContext'
+import {getNotesForFolder} from '../notes-helpers'
 import './NoteListMain.css'
 
-export default function NoteListMain(props) {
+class NoteListMain extends React.Component {
+  static defaultProps = {
+    match: {
+      params: {}
+    }
+  }
+  static contextType = NoteContext
+
+  render(){
+    const { folderId } = this.props.match.params
+    const { notes=[] } = this.context
+    const notesForFolder = getNotesForFolder(notes, folderId)
   return (
     <section className='NoteListMain'>
       <ul>
-        {props.notes.map(note =>
+        {notesForFolder.map(note =>
           <li key={note.id}>
             <Note
               id={note.id}
@@ -32,7 +45,5 @@ export default function NoteListMain(props) {
     </section>
   )
 }
-
-NoteListMain.defaultProps = {
-  notes: [],
 }
+export default NoteListMain
