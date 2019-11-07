@@ -1,12 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Note from '../Note/Note'
-import CircleButton from '../CircleButton/CircleButton'
+import NavButton from '../Button/Button'
 import NoteContext from '../NoteContext'
 import {getNotesForFolder} from '../notes-helpers'
 import './NoteListMain.css'
+import PropTypes from 'prop-types'
+
 
 class NoteListMain extends React.Component {
+
+  static propTypes={
+    folderId: PropTypes.string
+  }
+
   static defaultProps = {
     match: {
       params: {}
@@ -32,7 +39,7 @@ class NoteListMain extends React.Component {
         )}
       </ul>
       <div className='NoteListMain__button-container'>
-        <CircleButton
+        <NavButton
           tag={Link}
           to='/add-note'
           type='button'
@@ -40,7 +47,7 @@ class NoteListMain extends React.Component {
         >
           <br />
           Note
-        </CircleButton>
+        </NavButton>
       </div>
     </section>
   )

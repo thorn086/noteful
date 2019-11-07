@@ -2,10 +2,41 @@ import React from 'react'
 import NotefulForm from '../NotefulForm/NotefulForm'
 import API from '../API'
 import NoteContext from '../NoteContext'
+import ValidationError from '../addNote/ValidationError';
+import './addNewFolder.css'
+import PropTypes from 'prop-types'
+import FolderErr from '../FolderError/FolderError'
+
 
 
 class addNewFolder extends React.Component{
-    static contextType = NoteContext;
+  static propTypes={
+    value: PropTypes.string,
+    touched: PropTypes.bool
+  }
+  static contextType = NoteContext;
+
+constructor(props){
+super(props);
+  this.state={
+      folderName:{
+        value: '',
+        touched:false
+     },
+  };
+}
+
+updateFolderName(folderName){
+    this.setState({ folderName: { value: folderName, touched:true }})
+}
+
+validateFolderName() {
+  
+      const folderName= this.state.folderName.value.trim();
+        if (folderName.length === 0) {
+          return ('Folder Name is Required');
+        }
+}
 
   handleSubmit = event => {
     event.preventDefault()
@@ -40,15 +71,21 @@ class addNewFolder extends React.Component{
        
         <NotefulForm onSubmit={this.handleSubmit}>
             <div className='field'>
-                <label htmlFor='folder-name-input'>
-                Name
-                </label>
-           
-                <input type='text' id='folder-name-input' name='folder-name' />
+              <FolderErr >
+                  <label htmlFor='folder-name-input'>
+                  Folder Name
+                  </label>
+            
+                  <input type='text' id='folder-name-input' name='folder-name' onChange={e => this.updateFolderName(e.target.value)} />
+                
+                  {this.state.folderName.touched && <ValidationError message={this.validateFolderName()} />}
+              </FolderErr >
             </div>
-                <div className='buttons'>
-                <button type='submit'></button>
-                </div>
+                  <div className='buttons'>
+                  <button type='submit' disabled={this.validateFolderName()}>Add Folder</button>
+                  
+               
+             </div>
         </NotefulForm>
     </section>)}
 

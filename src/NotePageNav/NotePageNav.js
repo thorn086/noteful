@@ -1,10 +1,16 @@
 import React from 'react'
-import CircleButton from '../CircleButton/CircleButton'
+import NavButton from '../Button/Button'
 import NoteContext from '../NoteContext'
 import {findNote, findFolder} from '../notes-helpers'
 import './NotePageNav.css'
+import PropTypes from 'prop-types'
+
 
 class NotePageNav extends React.Component {
+static propTypes={
+  noteId: PropTypes.string
+}
+
   static defaultProps = {
     history: {
       goBack: () => { }
@@ -18,7 +24,7 @@ class NotePageNav extends React.Component {
     const folder = findFolder(folders, note.folderId)
   return (
     <div className='NotePageNav'>
-      <CircleButton
+      <NavButton
         tag='button'
         role='link'
         onClick={() => this.props.history.goBack()}
@@ -26,7 +32,7 @@ class NotePageNav extends React.Component {
       >
         <br />
         Back
-      </CircleButton>
+      </NavButton>
       {folder && (
         <h3 className='NotePageNav__folder-name'>
           {folder.name}

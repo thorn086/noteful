@@ -9,8 +9,14 @@ import NotePageMain from '../NotePageMain/NotePageMain';
 import NoteContext from '../NoteContext'
 import API from '../API'
 import './App.css';
+import PropTypes from 'prop-types'
 
 class App extends Component {
+static propType ={
+    notes: PropTypes.array,
+    folders: PropTypes.array
+}
+
     constructor(props){
         super(props);
         this.state = {
@@ -116,7 +122,7 @@ class App extends Component {
             folders: this.state.folders,
             deleteNote: this.handleDeleteNote,
             addFolder: this.handleAddFolder,
-            createNote: this.handdleCreateNote
+            createNote: this.handleCreateNote
         }
         return (
            <NoteContext.Provider value={contextValue}> 

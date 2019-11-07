@@ -4,6 +4,7 @@ import { format } from 'date-fns'
 import NoteContext from '../NoteContext'
 import API from '../API'
 import './Note.css'
+import PropTypes from 'prop-types'
 
 class Note extends React.Component {
   static defaultProps ={
@@ -11,6 +12,12 @@ class Note extends React.Component {
   }
 
   static contextType= NoteContext
+
+  static propTypes={
+    name: PropTypes.string,
+    id: PropTypes.string,
+    modified: PropTypes.string
+  }
   
   handleClickDelete = event => {
     event.preventDefault()
@@ -62,4 +69,4 @@ class Note extends React.Component {
 }
 }
 
-export default Note
+export default Note;

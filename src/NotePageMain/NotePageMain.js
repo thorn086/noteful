@@ -3,8 +3,14 @@ import Note from '../Note/Note'
 import NoteContext from '../NoteContext'
 import {findNote} from '../notes-helpers'
 import './NotePageMain.css'
+import PropTypes from 'prop-types'
 
 class NotePageMain extends React.Component {
+
+static propTypes={
+  noteId: PropTypes.string
+}
+
   static defaultProps = {
     match: {
       params: {}
