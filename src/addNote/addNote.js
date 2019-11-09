@@ -31,7 +31,8 @@ static propTypes={
         value: ''
       },
       folder: {
-        value: ''
+        value: null,
+        touched: false
       }
     }
   }
@@ -40,12 +41,24 @@ static propTypes={
     this.setState({ name: {value:  name, touched: true }})
   }
 
+  updateFolder(folder){
+    this.setState({ folder: { value: folder, touched:true}})
+  }
+
   validateName() {
     const name= this.state.name.value.trim();
       if(name.length === 0){
         return 'Name is Required';
       }
   }
+
+  validateFolder(){
+    const folder= this.state.folder.value;
+      if(folder === null ){
+        return'You must select a folder';
+      }
+  }
+ 
 
   handleCreateNote = event => {
     event.preventDefault()
@@ -104,19 +117,19 @@ static propTypes={
                         Folder
                         </label>
                         <NoteErr>
-                          <select id='note-folder-select' name='note-folder-id'>
+                          <select id='note-folder-select' name='note-folder-id' onChange={e => this.updateFolder(e.target.folder)}>
                           <option value={null}>...</option>
                           {folders.map(folder =>
                               <option key={folder.id} value={folder.id}>
                                 {folder.name}
-                              </ option> 
-                          )}
-                          </select>     
+                          </ option> )}
+                          </select> 
+                          
                         </NoteErr>
                     </div>
-                    
+                     <ValidationError message={this.validateFolder()} />
                     <div className='addNote-buttons'>
-                      <button type='submit' disabled ={this.validateName()} >
+                      <button type='submit' disabled ={this.validateName() || this.validateFolder()}  >
                         Add Note
                       </button>
                     </div>
