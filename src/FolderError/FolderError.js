@@ -14,7 +14,7 @@ class FolderErr extends React.Component{
         children: PropTypes.string
     }
 
-    static getDeriviedStateFromError(){
+    static getDerivedStateFromError(){
         return {hasError: true};
     }
 
