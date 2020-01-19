@@ -63,9 +63,9 @@ static propTypes={
   handleCreateNote = event => {
     event.preventDefault()
     const createNewNote = {
-      name: event.target['note-name'].value,
+      note_name: event.target['note-name'].value,
       content: event.target['note-content'].value,
-      folderId: event.target['note-folder-id'].value,
+      folder_id: event.target['note-folder-id'].value,
       modified: new Date(),
     }
     fetch(`${API.API_ENDPOINT}/notes`, {
@@ -82,7 +82,7 @@ static propTypes={
       })
       .then(note => {
         this.context.createNote(note)
-        this.props.history.push(`/folder/${note.folderId}`)
+        this.props.history.push(`/folders/${note.folder_id}`)
       })
       .catch(error => {
         console.error({ error })
@@ -121,7 +121,7 @@ static propTypes={
                           <option value={null}>...</option>
                           {folders.map(folder =>
                               <option key={folder.id} value={folder.id}>
-                                {folder.name}
+                                {folder.folder_name}
                           </ option> )}
                           </select> 
                           

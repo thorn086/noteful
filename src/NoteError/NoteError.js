@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+
 
 
 class NoteErr extends React.Component{
@@ -9,11 +9,7 @@ class NoteErr extends React.Component{
             hasError: false
         }
     }
-
-    static propTypes ={
-        children: PropTypes.string
-    }
-
+  
     static getDerivedStateFromError(){
         return {hasError: true};
     }

@@ -1,72 +1,64 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { format } from 'date-fns'
 import NoteContext from '../NoteContext'
 import API from '../API'
 import './Note.css'
-import PropTypes from 'prop-types'
+
 
 class Note extends React.Component {
-  static defaultProps ={
-    onDeleteNote: () => {},
+  static defaultProps = {
+    notes: [],
+    onDeleteNote: () => { },
   }
 
-  static contextType= NoteContext
+  static contextType = NoteContext
 
-  static propTypes={
-    name: PropTypes.string,
-    id: PropTypes.string,
-    modified: PropTypes.string
-  }
-  
+
+
   handleClickDelete = event => {
     event.preventDefault()
-    const noteId = this.props.id
+    const id = this.props.id
 
-    fetch(`${API.API_ENDPOINT}/notes/${noteId}`, {
+    fetch(`${API.API_ENDPOINT}/notes/${id}`, {
       method: 'DELETE',
-      headers: {
-        'content-type': 'application/json'
-      },
     })
       .then(result => {
         if (!result.ok)
           return result.json().then(event => Promise.reject(event))
-        return result.json()
       })
       .then(() => {
-        this.context.deleteNote(noteId)
-        this.props.onDeleteNote(noteId)
+        this.context.deleteNote(id)
+        this.props.onDeleteNote(id)
       })
       .catch(error => {
         console.error({ error })
       })
   }
-  render(){
-    const {name, id, modified}=this.props
-  return (
+  render() {
+    const { name, id, modified } = this.props
 
-    <div className='Note'>
-      <h2 className='Note__title'>
-        <Link to={`/note/${id}`}>
-          {name}
-        </Link>
-      </h2>
-      
-      <button className='Note__delete' type='button' onClick={this.handleClickDelete}>
-        
-        remove
+    return (
+
+      <div className='Note'>
+        <h2 className='Note__title'>
+          <Link to={`/notes/${id}`}>
+            {name}
+          </Link>
+        </h2>
+
+        <button className='Note__delete' type='button' onClick={this.handleClickDelete}>
+
+          remove
       </button>
-      <div className='Note__dates'>
-        <div className='Note__dates-modified'>
-          Modified
-         
-          <div className="Date">{format(new Date(modified), 'do MMM, yyyy')}</div>
-        </div> 
-     </div>
-  </div>
-  )
-}
+        <div className='Note__dates'>
+          <div className='Note__dates-modified'>
+            Modified
+          <div className="Date">{new Date(modified).toUTCString()}</div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default Note;

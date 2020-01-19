@@ -8,20 +8,20 @@ import PropTypes from 'prop-types'
 
 class NotePageNav extends React.Component {
 static propTypes={
-  noteId: PropTypes.string
+  id: PropTypes.number
 }
 
   static defaultProps = {
     history: {
-      goBack: () => { }
+      goBack: () => {}
     }
   }
   static contextType = NoteContext
   render(){
     const { notes, folders, } = this.context
-    const { noteId } = this.props.match.params
-    const note = findNote(notes, noteId) || {}
-    const folder = findFolder(folders, note.folderId)
+    const { id } = this.props.match.params
+    const note = findNote(notes, parseInt(id)) || {}
+    const folder = findFolder(folders, note.folder_id)
   return (
     <div className='NotePageNav'>
       <NavButton
@@ -33,9 +33,9 @@ static propTypes={
         <br />
         Back
       </NavButton>
-      {folder && (
+      {note.folder_id && (
         <h3 className='NotePageNav__folder-name'>
-          {folder.name}
+          {folder.folder_name}
         </h3>
       )}
     </div>

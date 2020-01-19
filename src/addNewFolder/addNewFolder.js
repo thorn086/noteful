@@ -40,7 +40,7 @@ validateFolderName() {
 
   handleSubmit = event => {
     event.preventDefault()
-    const folder = {
+    const newFolder = {
       name: event.target['folder-name'].value
     }
     fetch(`${API.API_ENDPOINT}/folders`, {
@@ -48,7 +48,7 @@ validateFolderName() {
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify(folder),
+      body: JSON.stringify(newFolder),
     })
       .then(results => {
         if (!results.ok)
@@ -56,8 +56,9 @@ validateFolderName() {
         return results.json()
       })
       .then(folder => {
+        newFolder.id = folder.id
         this.context.addFolder(folder)
-        this.props.history.push(`/folder/${folder.id}`)
+        this.props.history.push(`/folders/${folder.id}`)
       })
       .catch(error => {
         console.error({ error })

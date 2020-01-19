@@ -42,7 +42,9 @@ static propType ={
             ])
           })
             .then(([notes, folders]) => {
+                
                 this.setState({notes, folders});
+                
             })
             .catch(error => {
                 console.error({error});
@@ -76,7 +78,7 @@ static propType ={
     renderNavRoutes() {
         return (
             <>
-                {['/', '/folder/:folderId'].map(path => (
+                {['/', '/folders/:folderId'].map(path => (
                     <Route
                         exact
                         key={path}
@@ -84,9 +86,10 @@ static propType ={
                         component ={NoteListNav}
                     />
                 ))}
-                <Route path="/note/:noteId" component={NotePageNav} />
+                <Route path="/notes/:id" component={NotePageNav} />
                 <Route path="/add-folder" component={NotePageNav} />
                 <Route path="/add-note" component={NotePageNav} />
+                
             </>
         );
     }
@@ -94,7 +97,7 @@ static propType ={
     renderMainRoutes() {
         return (
             <>
-                {['/', '/folder/:folderId'].map(path => (
+                {['/', '/folders/:folderId'].map(path => (
                     <Route
                         exact
                         key={path}
@@ -104,7 +107,7 @@ static propType ={
                     />
                 ))}
                 <Route
-                    path="/note/:noteId" component={NotePageMain}
+                    path="/notes/:id" component={NotePageMain}
                 />
                  <Route
                     path="/add-folder" component={addNewFolder}

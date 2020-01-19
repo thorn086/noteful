@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+
 
 
 class FolderErr extends React.Component{
@@ -9,10 +9,7 @@ class FolderErr extends React.Component{
             hasError: false
         }
     }
-
-    static propTypes ={
-        children: PropTypes.string
-    }
+   
 
     static getDerivedStateFromError(){
         return {hasError: true};

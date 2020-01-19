@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 class NotePageMain extends React.Component {
 
 static propTypes={
-  noteId: PropTypes.string
+  id: PropTypes.number
 }
 
   static defaultProps = {
@@ -18,19 +18,20 @@ static propTypes={
   }
   static contextType = NoteContext
 
-  handleDeleteNote = noteId => {
+  handleDeleteNote = () => {
     this.props.history.push(`/`)
   }
 
   render(){
     const { notes=[] } = this.context
-    const { noteId } = this.props.match.params
-    const note = findNote(notes, noteId) || { content: '' }
+    const { id } = this.props.match.params
+    const note = findNote(notes, parseInt(id)) || { content: '' }
+   
   return (  
     <section className='NotePageMain'>
       <Note
         id={note.id}
-        name={note.name}
+        name={note.note_name}
         modified={note.modified}
         onDeleteNote={this.handleDeleteNote}
       />
